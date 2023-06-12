@@ -17,6 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import vero.practicaAndroidSuperpoderes.houston.HoustonScreen
+import vero.practicaAndroidSuperpoderes.ui.login.LoginScreen
 import vero.practicaAndroidSuperpoderes.ui.theme.PracticaAndroidSuperpoderesTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,41 +31,21 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    LoginScreen()
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        //los modifiers son comportamiiento y apariencia que se puede ver
-        //se van concatenando los modifiers y cuando tengo el objeto lo construyo con el builld
-        modifier = modifier.background(Color.Green).padding(36.dp).background(Color.Red).clickable { Log.d("CLICK", "CLICK PANTALLA") },
-        color = Color.White
 
-    )
-}
 
 @Preview(showBackground = true, showSystemUi = true, device = Devices.NEXUS_10)
 @Preview(showBackground = true, showSystemUi = true, device = Devices.NEXUS_6)
 @Composable
 fun GreetingPrewiew() {
     PracticaAndroidSuperpoderesTheme{
-        Greeting(name ="Android" )
+      HoustonScreen()
         
     }
-}
-
-@Preview
-@Composable
-fun GreetingPreview2() {
-    PracticaAndroidSuperpoderesTheme {
-        Greeting("Ios")
-    }
-
-
 }
