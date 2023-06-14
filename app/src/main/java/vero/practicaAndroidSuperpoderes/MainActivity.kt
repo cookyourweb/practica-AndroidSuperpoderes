@@ -17,6 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import vero.practicaAndroidSuperpoderes.components.MyCards
+import vero.practicaAndroidSuperpoderes.components.MyImage
+import vero.practicaAndroidSuperpoderes.components.MyLazyColumn
+import vero.practicaAndroidSuperpoderes.components.MyLazyGrid
+import vero.practicaAndroidSuperpoderes.components.MyRow2
+import vero.practicaAndroidSuperpoderes.components.MyRow3
+import vero.practicaAndroidSuperpoderes.components.MyScaffold
 import vero.practicaAndroidSuperpoderes.houston.HoustonScreen
 import vero.practicaAndroidSuperpoderes.ui.login.LoginScreen
 import vero.practicaAndroidSuperpoderes.ui.theme.PracticaAndroidSuperpoderesTheme
@@ -31,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginScreen()
+                    MyImage()
                 }
             }
         }
