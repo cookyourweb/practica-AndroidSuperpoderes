@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.runtime.Composable
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,22 +40,32 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import vero.practicaAndroidSuperpoderes.R
 
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(viewModel: LoginViewModel) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         AppLogo()
+        val state by viewModel.state.observeAsState() //para saber si  ha ido bien la llamada
+      //  val state by viewModel.state.collectAsState() //opcion de Flow
+
+        //estados
+        if (state == true){
+
+        }
+
+
         var textemail by remember {
             mutableStateOf("")
         }
         var textpassword by remember {
-            mutableStateOf("")
+            mutableStateOf("") //los states soon de compose y los state flow son de compose
         }
 
         FormField( textemail,Icons.Default.Email, isPassword = false,
@@ -72,6 +83,7 @@ fun LoginScreen() {
         }
         LoginButton(enabled = true) {
             Log.d("StateLess", "$textemail $textpassword")
+           // viewModel.doLogin(textemail, textpassword)
         }
     }
 }
@@ -147,9 +159,9 @@ fun LoginButton(enabled: Boolean, onClick: () -> Unit) {
         Text(text = "Login")
     }
 }
-
+/*
 @Preview(showBackground = true)
 @Composable
 fun LoginScree_Preview() {
     LoginScreen()
-}
+}*/

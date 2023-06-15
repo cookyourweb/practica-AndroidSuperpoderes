@@ -77,7 +77,7 @@ fun MyFlexibleGrid(isTablet: Boolean, isHorizontal: Boolean) {
             GridCells.Fixed(3)
         }
     } else {
-        GridCells.Fixed(1)
+        GridCells.Fixed(2)
     }
 
     LazyVerticalGrid(columns = cells) {
