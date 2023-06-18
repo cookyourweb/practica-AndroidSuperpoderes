@@ -36,7 +36,7 @@ fun  SuperHeroListScreen (viewModel: SuperHeroListViewModel) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SuperHeroListScreenContent(heros: List<Hero>, onSuperHeroListClicked: (String) -> Unit) {
-    Scaffold(modifier = Modifier.fillMaxSize()) {
+    Scaffold(modifier = Modifier.fillMaxSize()) {//por defecto
         LazyColumn(Modifier.padding(it)){
             items(heros, key = {it.id}){
                 Text(text = it.name)

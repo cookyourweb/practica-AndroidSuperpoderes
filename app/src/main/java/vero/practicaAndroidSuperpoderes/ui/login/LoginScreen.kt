@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -47,7 +48,11 @@ import vero.practicaAndroidSuperpoderes.R
 @Composable
 fun LoginScreen(viewModel: LoginViewModel, onLoginFinished: () -> (Unit)) {
     val state by viewModel.state.observeAsState()
-
+LaunchedEffect(state){
+    if(state == true){
+        onLoginFinished()
+    }
+}
 
 
     LoginScreenContent(state = state == true, onLoginClicked ={ email, password ->
