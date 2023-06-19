@@ -9,6 +9,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
+//con el Singleton no necesitmaos guardar los datos a local
 //aqui le injectamos la  api y hay que  meter retrofit . Lo hacemos  en ell NetworkModule
 class DefaultRemoteDataSource @Inject constructor(private val api: DragonBallApi) : RemoteDataSource {
 
