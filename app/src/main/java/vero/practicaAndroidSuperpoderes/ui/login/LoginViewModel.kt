@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import vero.practicaAndroidSuperpoderes.data.Repository
+import vero.practicaAndroidSuperpoderes.flow.FlowBuilders
 import javax.inject.Inject
 
 
@@ -21,8 +22,14 @@ class LoginViewModel @Inject constructor(private val  repository: Repository):Vi
     //al utilizar corutinas, nos cambian el hilo y si actualizamos la misma variable desde hilos  diferentes obtenemos  resultados  no espeerados
     val state: LiveData<Boolean> get() = _state
 
+    private val flowBuilders = FlowBuilders()
+
     /*private val _state =  MutableStateFlow( false) //con stateflow otra forma
     val state: StateFlow<Boolean> get() = _state*/
+
+     fun doFlow(){
+        flowBuilders.flowBuilderCollection()
+    }
 
  fun doLogin(user: String, password: String) {
         viewModelScope.launch {   //para que vayan por diferentes hilos
@@ -37,4 +44,12 @@ class LoginViewModel @Inject constructor(private val  repository: Repository):Vi
         }
 
     }
+
+
+
+
+
+
+
+
 }

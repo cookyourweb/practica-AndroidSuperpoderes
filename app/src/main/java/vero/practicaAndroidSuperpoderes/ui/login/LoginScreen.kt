@@ -54,10 +54,12 @@ LaunchedEffect(state){
     }
 }
 
-
     LoginScreenContent(state = state == true, onLoginClicked ={ email, password ->
-viewModel.doLogin(email,password)
+        viewModel.doFlow()
     })
+    /*LoginScreenContent(state = state == true, onLoginClicked ={ email, password ->
+viewModel.doLogin(email,password)
+    })*/
 }
 
 //todas las vistas van a  tener su viewModel. Renombramos fun LoginScreen a LoginScreenContent y creamos un composable nuevo

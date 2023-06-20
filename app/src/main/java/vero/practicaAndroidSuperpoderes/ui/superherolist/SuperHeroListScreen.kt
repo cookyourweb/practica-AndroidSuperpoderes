@@ -57,6 +57,8 @@ fun SuperHeroListScreen(viewModel: SuperHeroListViewModel) {
 fun SuperHeroListScreenContent(heros: List<Hero>, onSuperHeroListClicked: (String) -> Unit) {
 
     val scaffoldS = rememberScaffoldState()
+    //scaffoldS.snackbarHostState.showSnackbar("show")
+    // Se controla lo que se va mostrando en lugar de poner if then
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
