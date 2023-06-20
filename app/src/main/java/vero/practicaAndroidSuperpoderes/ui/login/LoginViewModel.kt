@@ -28,7 +28,17 @@ class LoginViewModel @Inject constructor(private val  repository: Repository):Vi
     val state: StateFlow<Boolean> get() = _state*/
 
      fun doFlow(){
-        flowBuilders.flowBuilderCollection()
+         viewModelScope.launch{
+            // flowBuilders.flowBuilderCollection()
+            // flowBuilders.flowBuilderWithFlowOf()
+             //flowBuilders.flowBuilderWithFlow()
+             //flowBuilders.flowExampleOnEach()
+         //flowBuilders.flowExampleMap()
+             //flowBuilders.flowExampleFilter()
+             //flowBuilders.flowExampleTransform()
+             flowBuilders.ejercicioConseguirFavorito()
+         }
+         //flowBuilders.flowBuilderCollection()
     }
 
  fun doLogin(user: String, password: String) {
