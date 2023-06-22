@@ -30,7 +30,8 @@ class SuperHeroListViewModel @Inject constructor(private val repository: Reposit
 
 
     private val _state = MutableStateFlow<List<Hero>>(emptyList())
-    val state: StateFlow<List<Hero>> get() = _state
+    val state: StateFlow<List<Hero>>
+    get() = _state
 
 //creamos un contador.El statflow lo exponemos en el compose.  Para mejorar crear difererentes capas entre los modelos de datos
     //el  flow que recibo del repositorio lo almaceno aqui:

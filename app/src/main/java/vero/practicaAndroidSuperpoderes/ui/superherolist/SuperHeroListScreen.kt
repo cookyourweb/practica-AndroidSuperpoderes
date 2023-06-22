@@ -1,6 +1,7 @@
 package vero.practicaAndroidSuperpoderes.ui.superherolist
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -108,7 +109,6 @@ fun MyBottomBar(favs: Int = 0) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
             BottomBarItem("Home", Icons.Default.Home)
             BottomBarItem("Favs: $favs", Icons.Default.Favorite)
-            BottomBarItem("Settings", Icons.Default.Settings)
         }
     }
 }
@@ -136,11 +136,14 @@ fun MyTopBar_Preview() {
 
 
 @Composable
-fun SuperheroItem(hero: Hero, modifier: Modifier = Modifier, onHeroClick: (Hero) -> Unit) {
+fun SuperheroItem(hero: Hero,
+                  modifier: Modifier = Modifier,
+                  onHeroClick: (Hero) -> Unit) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .height(300.dp)
+
             //.clickable { onHeroClick(hero) }
     ) {
         AsyncImage(
@@ -148,7 +151,7 @@ fun SuperheroItem(hero: Hero, modifier: Modifier = Modifier, onHeroClick: (Hero)
             contentDescription = "${hero.name} photo",
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { }
+                .clickable {  Log.d("Clicked", "Superhero Image clicked")}
                 .weight(1f),
             contentScale = ContentScale.Crop
         )
@@ -193,7 +196,7 @@ fun SuperheroItem(hero: Hero, modifier: Modifier = Modifier, onHeroClick: (Hero)
 @Preview
 @Composable
 fun SuperheroItem_Preview() {
-    SuperheroItem(Hero("", "Goku", "")){}
+    SuperheroItem(Hero("", "Goku", "",isFavorite = false)){}
 }
 
 @Preview(showBackground = true)
