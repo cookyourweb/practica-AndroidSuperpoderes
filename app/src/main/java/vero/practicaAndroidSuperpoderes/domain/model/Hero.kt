@@ -1,7 +1,12 @@
 package vero.practicaAndroidSuperpoderes.domain.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "superheros")
 data class Hero(
-    val id: String,
+   @PrimaryKey val id: String,
     val name: String,
-    val photo: String
+    val photo: String,
+    val isFavorite:Boolean = false
 )

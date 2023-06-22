@@ -32,6 +32,10 @@ class SuperHeroListViewModel @Inject constructor(private val repository: Reposit
     private val _state = MutableStateFlow<List<Hero>>(emptyList())
     val state: StateFlow<List<Hero>> get() = _state
 
+//creamos un contador.El statflow lo exponemos en el compose.  Para mejorar crear difererentes capas entre los modelos de datos
+    //el  flow que recibo del repositorio lo almaceno aqui:
+private val _favs = MutableStateFlow(0)
+    val favs: StateFlow<Int> get() = _favs
 
     fun getSuperheros() {
         viewModelScope.launch {
@@ -40,7 +44,24 @@ class SuperHeroListViewModel @Inject constructor(private val repository: Reposit
             }
 
             _state.update { result }
+            //actualizamos la variable. Como vamos a salir afuera para leer la bd utilizamos el Dispatchers.
+            //como no devuelve resultado lo puedo poner en el launch
+            launch(Dispatchers.IO){
+                repository.getLocalHeros().collect{ heros ->
+                    _favs.update {  heros.size }//para que me diga cuantos hay
+                }
+            }
         }
     }
-}
+
+    fun insertSuperhero(hero:Hero){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insertHero(hero)
+
+           /* val result = withContext(Dispatchers.IO){
+                repository.getLocalHeros()*/
+            }
+        }
+    }
+
 

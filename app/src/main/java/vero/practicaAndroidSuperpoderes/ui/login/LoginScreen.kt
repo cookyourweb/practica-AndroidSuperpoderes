@@ -56,7 +56,7 @@ LaunchedEffect(state){
 
     /* LoginScreenContent(state = state == true, onLoginClicked ={ email, password ->
          viewModel.doFlow()
-     })*/*/
+     })*/
      LoginScreenContent(state = state == true, onLoginClicked ={ email, password ->
  viewModel.doLogin(email,password)
      })
