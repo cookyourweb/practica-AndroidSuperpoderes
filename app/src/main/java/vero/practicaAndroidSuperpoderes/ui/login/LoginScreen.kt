@@ -118,7 +118,8 @@ fun LoginScreenContent(state:Boolean, onLoginClicked: (String, String) -> Unit) 
                 email = it
                 emailValid = it.contains("@")
         }) {
-            FormLabel("Email", TextDecoration.Underline)
+            //FormLabel("Email", TextDecoration.Underline)//Lo quito para ell testing
+            FormLabel("Email", TextDecoration.None)
         }
         FormField(password,leadingIcon = Icons.Default.Password,
             trailingIcon = Icons.Default.Visibility,
@@ -129,7 +130,7 @@ fun LoginScreenContent(state:Boolean, onLoginClicked: (String, String) -> Unit) 
                 passwordValid = it.length > 6
             }
             ) {
-            FormLabel("Password", TextDecoration.LineThrough)
+            FormLabel("Password", TextDecoration.None)
         }
         LoginButton(enabled = enabled) {
             Log.d("StateLess", "$email $password")
