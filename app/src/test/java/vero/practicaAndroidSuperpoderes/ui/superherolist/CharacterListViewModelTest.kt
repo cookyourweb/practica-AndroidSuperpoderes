@@ -13,6 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
@@ -40,8 +41,6 @@ class CharacterListViewModelTest {
     private val mainThreadSubrrogate = newSingleThreadContext("UI thread")
 
 
-
-
     @Before
     fun setUp() {
         Dispatchers.setMain(mainThreadSubrrogate)
@@ -49,7 +48,7 @@ class CharacterListViewModelTest {
 
 
     @Test
-    fun `WHen getCharacters expects list of characters`() = runTest {
+    fun `WHen getCharacters gets list of characters`() = runTest {
 
 
         // GIVEN
@@ -69,27 +68,22 @@ class CharacterListViewModelTest {
             actualList.size == 1
         )
 
-        Truth.assertThat(actualList).containsAtLeastElementsIn(listOf(generateListCharacters()) )
+        Truth.assertThat(actualList).containsAtLeastElementsIn(listOf(generateListCharacters()))
 
         collectJob.cancel()
     }
 
 
-
-
     @After
     fun tearDown() {
+        Dispatchers.resetMain()
+        mainThreadSubrrogate.close()
     }
 
-    @Test
-    fun getCharacters() {
-    }
-
-    @Test
-    fun testGetCharacters() {
-    }
 
     @Test
     fun setLike() {
+
+
     }
 }
