@@ -40,7 +40,7 @@ import coil.compose.AsyncImage
 import vero.practicaAndroidSuperpoderes.domain.model.Hero
 
 @Composable
-fun SuperHeroListScreen(viewModel: SuperHeroListViewModel) {
+fun SuperHeroDetailScreen(viewModel: SuperHeroDetailViewModel) {
 
     val state by viewModel.state.collectAsState()
     val favs by viewModel.favs.collectAsState()
@@ -50,14 +50,14 @@ fun SuperHeroListScreen(viewModel: SuperHeroListViewModel) {
     }
 
 
-    SuperHeroListScreenContent(state,favs) { hero ->
+    SuperHeroDetailScreenContent(state,favs) { hero ->
 viewModel.insertSuperhero(hero)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SuperHeroListScreenContent(heros: List<Hero>, favs: Int, onSuperHeroListClicked: (Hero) -> Unit) {
+fun SuperHeroDetailScreenContent(heros: List<Hero>, favs: Int, onSuperHeroListClicked: (Hero) -> Unit) {
 
     val scaffoldS = rememberScaffoldState()
     //scaffoldS.snackbarHostState.showSnackbar("show")
@@ -66,10 +66,10 @@ fun SuperHeroListScreenContent(heros: List<Hero>, favs: Int, onSuperHeroListClic
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            MyTopBar()
+            MyDetTopBar()
         },
         bottomBar = {
-            MyBottomBar(favs)
+            MyDetBottomBar(favs)
         }
     ) {
         LazyColumn(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp), contentPadding = it) {
@@ -81,7 +81,7 @@ fun SuperHeroListScreenContent(heros: List<Hero>, favs: Int, onSuperHeroListClic
 }
 
 @Composable
-fun BottomBarItem(text: String, icon: ImageVector) {
+fun BottomBarDetItem(text: String, icon: ImageVector) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Icon(imageVector = icon, contentDescription = icon.name)
         Text(text = text)
@@ -90,16 +90,16 @@ fun BottomBarItem(text: String, icon: ImageVector) {
 
 @Preview
 @Composable
-fun BottomBarItem_Preview() {
-    BottomBarItem("Home", Icons.Default.Home)
+fun BottomBarDetItem_Preview() {
+    BottomBarDetItem("Listado", Icons.Default.Home)
 }
 
 @Composable
-fun MyBottomBar(favs: Int = 0) {
+fun MyDetBottomBar(favs: Int = 0) {
 
     BottomAppBar() {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
-            BottomBarItem("Home", Icons.Default.Home)
+            BottomBarItem("Listado", Icons.Default.Home)
             BottomBarItem("Favs: $favs", Icons.Default.Favorite)
         }
     }
@@ -107,13 +107,13 @@ fun MyBottomBar(favs: Int = 0) {
 
 @Preview
 @Composable
-fun MyBottomBar_Preview() {
-    MyBottomBar()
+fun MyDetBottomBar_Preview() {
+    MyDetBottomBar()
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyTopBar() {
+fun MyDetTopBar() {
 
     CenterAlignedTopAppBar(title = {
         Text(text = "Listado Superheroes")
@@ -122,13 +122,13 @@ fun MyTopBar() {
 
 @Preview
 @Composable
-fun MyTopBar_Preview() {
-    MyTopBar()
+fun MyDetTopBar_Preview() {
+    MyDetTopBar()
 }
 
 
 @Composable
-fun SuperheroItem(hero: Hero,
+fun SuperheroDetItem(hero: Hero,
                   modifier: Modifier = Modifier,
                   onHeroClick: (Hero) -> Unit) {
     Card(
@@ -187,13 +187,13 @@ fun SuperheroItem(hero: Hero,
 
 @Preview
 @Composable
-fun SuperheroItem_Preview() {
-    SuperheroItem(Hero("", "Goku", "",isFavorite = false)){}
+fun SuperheroDetItem_Preview() {
+    SuperheroDetItem(Hero("", "Goku", "",isFavorite = false)){}
 }
 
 @Preview(showBackground = true)
 @Composable
-fun SuperHeroListScreen_Preview() {
-    SuperHeroListScreenContent(emptyList(), 0) { }
+fun SuperHeroDetailScreen_Preview() {
+    SuperHeroDetailScreenContent(emptyList(), 0) { }
 }
 

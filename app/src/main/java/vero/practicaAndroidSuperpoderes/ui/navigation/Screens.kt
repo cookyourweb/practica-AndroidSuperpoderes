@@ -1,13 +1,13 @@
 package vero.practicaAndroidSuperpoderes.ui.navigation
 
 sealed class Screens(val route: String) {
-    object LoginScreen : Screens(SCREEN1_BASE_ROUTE)
-    object SuperheroScreen : Screens(SCREEN2_BASE_ROUTE)
+    object ListadoScreen : Screens(SCREEN1_LISTADO)
+    object DetalleScreeen : Screens(SCREEN2_DETALLE)
 
 
     companion object {
-        private const val SCREEN1_BASE_ROUTE = "LoginScreen"
-        private const val SCREEN2_BASE_ROUTE = "SuperheroScreen"
+        private const val SCREEN1_LISTADO = "ListadoScreen"
+        private const val SCREEN2_DETALLE = "DetalleScreeen"
 
 
     }
