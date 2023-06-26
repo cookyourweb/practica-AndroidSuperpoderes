@@ -7,27 +7,24 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import vero.practicaAndroidSuperpoderes.data.local.SuperheroDAO
-import vero.practicaAndroidSuperpoderes.data.local.SuperheroDatabase
+import vero.practicaAndroidSuperpoderes.data.local.MarvelCharacterDao
+import vero.practicaAndroidSuperpoderes.data.local.MarvelCharacterDatabase
 
 @Module
 @InstallIn(SingletonComponent::class)
 object LocalModule {
 
     @Provides
-    fun providesSuperheroDatabase(@ApplicationContext context: Context): SuperheroDatabase {
-        val db = Room.databaseBuilder(
+    fun provideDatabase(@ApplicationContext context: Context): MarvelCharacterDatabase {
+        return Room.databaseBuilder(
             context,
-            SuperheroDatabase::class.java, "superhero-db"
-        ).build()
-        return db
+            MarvelCharacterDatabase::class.java, "marvel-db"
+        )
+            .build()
     }
 
     @Provides
-    //le digo como se genera el Dao a partir de la Database
-    fun providesDao(db: SuperheroDatabase): SuperheroDAO {
-        val dao = db.superheroDao()
-        return dao
+    fun provideDao(database: MarvelCharacterDatabase): MarvelCharacterDao {
+        return database.getDao()
     }
-
 }

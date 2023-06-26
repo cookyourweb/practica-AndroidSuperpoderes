@@ -1,199 +1,80 @@
 package vero.practicaAndroidSuperpoderes.ui.superherolist
+import android.annotation.SuppressLint
 import android.util.Log
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.sharp.Favorite
-import androidx.compose.material.rememberScaffoldState
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Card
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.TopAppBar
+
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-
-import vero.practicaAndroidSuperpoderes.domain.model.MarvelCharacter
-
-@Composable
-fun SuperHeroListScreen(viewModel: SuperHeroListViewModel) {
-
-    val state by viewModel.state.collectAsState()
-    val favs by viewModel.favs.collectAsState()
-
-    LaunchedEffect(Unit) {
-        viewModel.getSuperheros()
-    }
+import androidx.hilt.navigation.compose.hiltViewModel
+import vero.practicaAndroidSuperpoderes.ui.components.CharactersListScreen
 
 
-    SuperHeroListScreenContent(state,favs) { hero ->
-viewModel.insertSuperhero(hero)
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun SuperHeroListScreenContent(heros: List<MarvelCharacter>, favs: Int, onSuperHeroListClicked: (MarvelCharacter) -> Unit) {
-
-    val scaffoldS = rememberScaffoldState()
-    //scaffoldS.snackbarHostState.showSnackbar("show")
-    // Se controla lo que se va mostrando en lugar de poner if then
-
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            MyTopBar()
-        },
-        bottomBar = {
-            MyBottomBar(favs)
-        }
-    ) {
-        LazyColumn(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp), contentPadding = it) {
-            items(heros, key = { it.id }) { hero ->
-                SuperheroItem(hero = hero, onHeroClick = onSuperHeroListClicked)
-            }
-        }
-    }
-}
-
-@Composable
-fun BottomBarItem(text: String, icon: ImageVector) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Icon(imageVector = icon, contentDescription = icon.name)
-        Text(text = text)
-    }
-}
-
-@Preview
-@Composable
-fun BottomBarItem_Preview() {
-    BottomBarItem("Home", Icons.Default.Home)
-}
-
-@Composable
-fun MyBottomBar(favs: Int = 0) {
-
-    BottomAppBar() {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
-            BottomBarItem("Home", Icons.Default.Home)
-            BottomBarItem("Favs: $favs", Icons.Default.Favorite)
-        }
-    }
-}
-
-@Preview
-@Composable
-fun MyBottomBar_Preview() {
-    MyBottomBar()
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun MyTopBar() {
-
-    CenterAlignedTopAppBar(title = {
-        Text(text = "Listado Superheroes")
-    })
-}
-
-@Preview
-@Composable
-fun MyTopBar_Preview() {
-    MyTopBar()
-}
-
-
-@Composable
-fun SuperheroItem(hero: MarvelCharacter,
-                  modifier: Modifier = Modifier,
-                  onHeroClick: (MarvelCharacter) -> Unit) {
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(300.dp)
-
-            //.clickable { onHeroClick(hero) }
-    ) {
-        AsyncImage(
-            model = hero.photo,
-            contentDescription = "${hero.name} photo",
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable {  Log.d("Clicked", "Superhero Image clicked")}
-                .weight(1f),
-            contentScale = ContentScale.Crop
-        )
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(text = hero.name,
-                style = MaterialTheme.typography.headlineSmall,
-                color = Color.Blue,
-                modifier = Modifier
-                    .padding(8.dp))
-
-
-              
-
-
-            androidx.compose.material.Icon(
-                imageVector = Icons.Sharp.Favorite,
-                contentDescription = "Favorite Icon",
-                tint = Color.LightGray,
-                modifier = Modifier
-                    .padding(8.dp)
-                    .size(35.dp)
-                    .clickable { onHeroClick(hero)
-                    }
-            )
-
-        }
-       
-    
-    
-    
-    }
-}
-
-
-                
-                
-
-@Preview
-@Composable
-fun SuperheroItem_Preview() {
-    SuperheroItem(MarvelCharacter("", "Goku", "",isFavorite = false)){}
-}
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 
 @Preview(showBackground = true)
 @Composable
-fun SuperHeroListScreen_Preview() {
-    SuperHeroListScreenContent(emptyList(), 0) { }
+fun CharacterListScreen(
+viewModel: CharacterListViewModel = hiltViewModel(),
+onCharacterClick: (String, String)-> Unit = {_,_ ->}
+) {
+    androidx.compose.material.Scaffold(modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                title = {
+                    androidx.compose.material.Text(text = "Marvel Characters")
+                }
+            )
+        }
+    ) {
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+
+            val characters = viewModel.characters.collectAsState()
+
+            if (characters.value.isEmpty()) {
+                LoadingLayout()
+            } else {
+                CharactersListScreen(characters.value, { mvcharacter ->
+                    viewModel.setLike(mvcharacter)
+                    Log.d("Character List", mvcharacter.isFavorite.toString())
+                }) { characterId, characterName ->
+                    onCharacterClick(characterId, characterName)
+                }
+            }
+        }
+
+    }
 }
 
+@Composable
+fun LoadingLayout(){
+
+    Column() {
+        Spacer(modifier = Modifier
+            .fillMaxHeight()
+            .weight(1f))
+        CircularProgressIndicator(
+            strokeWidth = 5.dp,
+            modifier = Modifier
+                .fillMaxHeight()
+                .width(75.dp)
+                .weight(2f)
+        )
+    }
+
+}

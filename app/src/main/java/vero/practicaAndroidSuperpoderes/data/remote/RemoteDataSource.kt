@@ -1,10 +1,14 @@
 package vero.practicaAndroidSuperpoderes.data.remote
 
-import vero.practicaAndroidSuperpoderes.domain.model.Hero
+import kotlinx.coroutines.flow.Flow
 
 
 interface RemoteDataSource {
 
-    suspend fun login(user: String, password: String): String
-    suspend fun getHeros(): List<Hero>
+
+    suspend fun getCharacters(): MarvelResponse
+
+    suspend fun getSeries(characterId:Int): Flow<MarvelResponse>
+
+    suspend fun getComics(characterId: Int): Flow<MarvelResponse>
 }

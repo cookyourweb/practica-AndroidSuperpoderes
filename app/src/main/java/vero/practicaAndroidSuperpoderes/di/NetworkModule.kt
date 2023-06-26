@@ -11,14 +11,18 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import vero.practicaAndroidSuperpoderes.data.remote.DragonBallApi
+import vero.practicaAndroidSuperpoderes.data.remote.MarvelAPI
+
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val BASE_URL = "https://dragonball.keepcoding.education/"
+    private const val BASE_URL = "https://gateway.marvel.com/"
+    private const val API_KEY= "0621519d3830d5ff6ccadacd381be830"
+    private const val TS= "1"
+    private const val HASH= "65e2744e93d5e85d0c7d21db818b7e1a"
 
     @Provides
     fun provideMoshi(): Moshi {
@@ -31,9 +35,19 @@ object NetworkModule {
     fun provideOkHttpClient(): OkHttpClient {
         val httpLoggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT)
         val clientBuilder = OkHttpClient.Builder()
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        clientBuilder.addInterceptor(httpLoggingInterceptor)
-
+            .addInterceptor{ chain ->
+                val originalRequet = chain.request()
+                val originalHttpUrl = originalRequet.url
+                val url = originalHttpUrl.newBuilder()
+                    .addQueryParameter("apikey", API_KEY)
+                    .addQueryParameter("ts", TS)
+                    .addQueryParameter("hash", HASH)
+                    .build()
+                val newRequest = originalRequet.newBuilder()
+                    .url(url)
+                    .build()
+                chain.proceed(newRequest)
+            }
         return clientBuilder.build()
     }
 
@@ -47,10 +61,9 @@ object NetworkModule {
             .build()
     }
 
-
     @Provides
     @Singleton
-    fun provideDragonBallApi(retrofit: Retrofit): DragonBallApi { //aqui enganchamos a retrofit
-        return retrofit.create(DragonBallApi::class.java)
+    fun provideDragonBallApi(retrofit: Retrofit): MarvelAPI {
+        return retrofit.create(MarvelAPI::class.java)
     }
 }

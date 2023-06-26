@@ -2,9 +2,9 @@ package vero.practicaAndroidSuperpoderes.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import vero.practicaAndroidSuperpoderes.domain.model.Hero
+import vero.practicaAndroidSuperpoderes.data.local.model.MarvelCharacterLocal
 
-@Database(entities = [Hero::class], version = 1)
-abstract class SuperheroDatabase : RoomDatabase() {
-abstract fun superheroDao(): SuperheroDAO
+@Database(entities = [MarvelCharacterLocal::class], version = 1)
+abstract class MarvelCharacterDatabase: RoomDatabase() {
+    abstract fun getDao():MarvelCharacterDao
 }

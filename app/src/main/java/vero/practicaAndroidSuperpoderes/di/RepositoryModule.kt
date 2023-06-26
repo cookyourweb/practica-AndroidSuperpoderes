@@ -7,6 +7,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import vero.practicaAndroidSuperpoderes.data.DefaultRepository
 import vero.practicaAndroidSuperpoderes.data.Repository
+import vero.practicaAndroidSuperpoderes.data.local.DefaultLocalDataSource
+import vero.practicaAndroidSuperpoderes.data.local.LocalDataSource
 import vero.practicaAndroidSuperpoderes.data.remote.DefaultRemoteDataSource
 import vero.practicaAndroidSuperpoderes.data.remote.RemoteDataSource
 
@@ -22,6 +24,6 @@ abstract class RepositoryModule {
     abstract fun bindRemoteDataSource(defaultRemoteDataSource: DefaultRemoteDataSource): RemoteDataSource
 
 
-
-    }
-
+    @Binds
+    abstract fun bindLocalDataSource(defaultLocalDataSource: DefaultLocalDataSource): LocalDataSource
+}

@@ -1,29 +1,27 @@
 package vero.practicaAndroidSuperpoderes.data.local
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
+import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
-import vero.practicaAndroidSuperpoderes.domain.model.Hero
+import vero.practicaAndroidSuperpoderes.data.local.model.MarvelCharacterLocal
 
 @Dao
 
-//Esto lo usamos en el localDataSource. Aunque vamos a hacer un mapeo en el Repository directamente
-interface SuperheroDAO {
-    @Query("SELECT * FROM superheros")
-    suspend fun getAll(): List<Hero>
 
-    @Query("SELECT * FROM superheros")
-    fun getAllFlow(): Flow<List<Hero>>
+interface MarvelCharacterDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllVararg(vararg users: Hero)
+    @Query("SELECT * FROM characters")
+    fun getAllCharacters(): Flow<List<MarvelCharacterLocal>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllList(users: List<Hero>)
+    @Insert(onConflict = REPLACE)
+    fun insertAll(characters: List<MarvelCharacterLocal>)
 
-    @Delete
-    suspend fun delete(user: Hero)
+    @Query("SElECT COUNT(id) FROM characters")
+    fun getNumberOfCharacters():Int
+
+    @Update
+    fun updateCharacter(character: MarvelCharacterLocal)
 }

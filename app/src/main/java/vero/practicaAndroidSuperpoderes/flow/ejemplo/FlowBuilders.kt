@@ -1,4 +1,4 @@
-package vero.practicaAndroidSuperpoderes.flow
+package vero.practicaAndroidSuperpoderes.flow.ejemplo
 
 import android.util.Log
 import kotlinx.coroutines.flow.asFlow

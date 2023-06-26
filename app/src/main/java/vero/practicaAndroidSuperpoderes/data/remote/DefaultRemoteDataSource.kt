@@ -1,27 +1,25 @@
 package vero.practicaAndroidSuperpoderes.data.remote
 
 
-import okhttp3.Credentials
-import vero.practicaAndroidSuperpoderes.data.remote.DragonBallApi
-import vero.practicaAndroidSuperpoderes.data.remote.request.GetHerosRequest
-import vero.practicaAndroidSuperpoderes.domain.model.Hero
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 //con el Singleton no necesitmaos guardar los datos a local
 //aqui le injectamos la  api y hay que  meter retrofit . Lo hacemos  en ell NetworkModule
-class DefaultRemoteDataSource @Inject constructor(private val api: DragonBallApi) : RemoteDataSource {
-
-    private lateinit var token: String
-    override suspend fun login(user: String, password: String): String {
-        val token = api.login(Credentials.basic(user, password))
-        this.token = token
-
-        return token
+class DefaultRemoteDataSource  @Inject constructor(private val api: MarvelAPI): RemoteDataSource  {
+    override suspend fun getCharacters(): MarvelResponse {
+        return api.getCharacters()
     }
 
-    override suspend fun getHeros(): List<Hero> {
-        return api.getHeros("Bearer $token", GetHerosRequest())
+    override suspend fun getSeries(characterId: Int): Flow<MarvelResponse> {
+        return flow { emit(api.getSeries(characterId)) }
+    }
+
+    override suspend fun getComics(characterId: Int): Flow<MarvelResponse> {
+        return flow { emit(api.getComics(characterId)) }
     }
 }

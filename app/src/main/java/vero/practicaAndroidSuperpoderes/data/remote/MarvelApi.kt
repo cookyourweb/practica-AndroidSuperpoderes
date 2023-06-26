@@ -1,16 +1,17 @@
 package vero.practicaAndroidSuperpoderes.data.remote
 
 
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.POST
-import vero.practicaAndroidSuperpoderes.data.remote.request.GetHerosRequest
-import vero.practicaAndroidSuperpoderes.domain.model.Hero
+import retrofit2.http.GET
+import retrofit2.http.Path
 
-interface DragonBallApi {
-    @POST("api/auth/login")
-    suspend fun login(@Header("Authorization") token: String): String
+interface MarvelAPI {
 
-    @POST("api/heros/all")
-    suspend fun getHeros(@Header("Authorization") token: String, @Body getHerosRequest: GetHerosRequest): List<Hero>
+    @GET("v1/public/characters")
+    suspend fun getCharacters():MarvelResponse
+
+    @GET("v1/public/characters/{characterId}/series")
+    suspend fun getSeries(@Path("characterId") characterId: Int):MarvelResponse
+
+    @GET("v1/public/characters/{characterId}/comics")
+    suspend fun getComics(@Path("characterId") characterId: Int):MarvelResponse
 }
