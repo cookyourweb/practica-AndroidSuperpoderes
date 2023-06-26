@@ -1,16 +1,5 @@
 package vero.practicaAndroidSuperpoderes.ui.superherolist
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import vero.practicaAndroidSuperpoderes.data.Repository
-import vero.practicaAndroidSuperpoderes.domain.model.Hero
+import vero.practicaAndroidSuperpoderes.domain.model.MarvelCharacter
 import javax.inject.Inject
 
 @HiltViewModel //es un framewqork de inyeccion de dependecncias . El repository es una implementacion
@@ -29,8 +18,8 @@ import javax.inject.Inject
 class SuperHeroListViewModel @Inject constructor(private val repository: Repository): ViewModel() {
 
 
-    private val _state = MutableStateFlow<List<Hero>>(emptyList())
-    val state: StateFlow<List<Hero>>
+    private val _state = MutableStateFlow<List<MarvelCharacter>>(emptyList())
+    val state: StateFlow<List<MarvelCharacter>>
     get() = _state
 
 //creamos un contador.El statflow lo exponemos en el compose.  Para mejorar crear difererentes capas entre los modelos de datos
@@ -55,7 +44,7 @@ private val _favs = MutableStateFlow(0)
         }
     }
 
-    fun insertSuperhero(hero:Hero){
+    fun insertSuperhero(hero:MarvelCharacter){
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertHero(hero)
 

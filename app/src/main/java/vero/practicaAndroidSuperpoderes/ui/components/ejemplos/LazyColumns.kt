@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import vero.practicaAndroidSuperpoderes.ui.login.AppLogo
+
 
 
 @Composable
@@ -134,7 +134,7 @@ fun MyLazyColumn3() {
             items(10) {
                 LazyRow{
                     items(10){
-                        AppLogo()
+
                     }
                 }
             }

@@ -37,7 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 
-import vero.practicaAndroidSuperpoderes.domain.model.Hero
+import vero.practicaAndroidSuperpoderes.domain.model.MarvelCharacter
 
 @Composable
 fun SuperHeroListScreen(viewModel: SuperHeroListViewModel) {
@@ -57,7 +57,7 @@ viewModel.insertSuperhero(hero)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SuperHeroListScreenContent(heros: List<Hero>, favs: Int, onSuperHeroListClicked: (Hero) -> Unit) {
+fun SuperHeroListScreenContent(heros: List<MarvelCharacter>, favs: Int, onSuperHeroListClicked: (MarvelCharacter) -> Unit) {
 
     val scaffoldS = rememberScaffoldState()
     //scaffoldS.snackbarHostState.showSnackbar("show")
@@ -128,9 +128,9 @@ fun MyTopBar_Preview() {
 
 
 @Composable
-fun SuperheroItem(hero: Hero,
+fun SuperheroItem(hero: MarvelCharacter,
                   modifier: Modifier = Modifier,
-                  onHeroClick: (Hero) -> Unit) {
+                  onHeroClick: (MarvelCharacter) -> Unit) {
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -188,7 +188,7 @@ fun SuperheroItem(hero: Hero,
 @Preview
 @Composable
 fun SuperheroItem_Preview() {
-    SuperheroItem(Hero("", "Goku", "",isFavorite = false)){}
+    SuperheroItem(MarvelCharacter("", "Goku", "",isFavorite = false)){}
 }
 
 @Preview(showBackground = true)
